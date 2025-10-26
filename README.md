@@ -67,3 +67,18 @@
   - 가장 멀리 이동한 자동차의 위치를 가져옴
   - 그 위치와 동일한 위치를 가진 모든 자동차가 우승자
 
+# 테스트
+
+## 랜덤함수가 있는건 어떻게 테스팅하지?
+
+### 비결정적인 로직은 따로 분리하기
+
+- 움직일지 말지, 얼마나 움직일지 결정하는 인터페이스 MovingStrategy
+- RandomlyMovingStrategy: 랜덤값 4 이상이면 1칸 전진, 미만이면 정지 (0칸 전진)
+- ConstantSpeedMovingStrategy: 항상 일정한 칸수만큼 전진
+- 게임 로직을 테스트하는 코드에서는 ConstantSpeedMovingStrategy 사용
+
+### 랜덤함수 mocking 
+ 
+- ApplicationTest 코드 참고하여 assertRandomNumberInRangeTest 활용
+

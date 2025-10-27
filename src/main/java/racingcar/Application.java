@@ -15,14 +15,15 @@ public class Application {
         List<RacingCar> cars = carNames.stream()
             .map(RacingCars::createRandomlyMovingCar)
             .toList();
+        Participants participants = new Participants(cars);
 
         int rounds = inputView.readRounds();
-        RacingGame game = new RacingGame(cars, rounds);
+        RacingGame game = new RacingGame(participants, rounds);
         outputView.printGameStart();
 
         while (!game.isGameOver()) {
             game.nextRound();
-            outputView.printRoundResult(cars);
+            outputView.printRoundResult(participants.toList());
         }
 
         outputView.printGameResult(game);

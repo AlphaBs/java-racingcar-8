@@ -10,7 +10,7 @@ class RacingGameTest {
     @Test
     void 자동차가_없는_게임은_불가능하다() {
         List<RacingCar> cars = List.of();
-        assertThatThrownBy(() -> new RacingGame(cars, 10))
+        assertThatThrownBy(() -> new Participants(cars))
             .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -20,7 +20,8 @@ class RacingGameTest {
             RacingCars.createConstantSpeedCar("pobi", 1),
             RacingCars.createConstantSpeedCar("woni", 1)
         );
-        assertThatThrownBy(() -> new RacingGame(cars, -1))
+        Participants participants = new Participants(cars);
+        assertThatThrownBy(() -> new RacingGame(participants, -1))
             .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -31,7 +32,8 @@ class RacingGameTest {
             RacingCars.createConstantSpeedCar("pobi", 2),
             RacingCars.createConstantSpeedCar("woni", 4)
         );
-        RacingGame game = new RacingGame(cars, 1);
+        Participants participants = new Participants(cars);
+        RacingGame game = new RacingGame(participants, 1);
 
         // when
         game.nextRound();
@@ -48,7 +50,8 @@ class RacingGameTest {
             RacingCars.createConstantSpeedCar("pobi", 2),
             RacingCars.createConstantSpeedCar("woni", 4)
         );
-        RacingGame game = new RacingGame(cars, 3);
+        Participants participants = new Participants(cars);
+        RacingGame game = new RacingGame(participants, 3);
 
         // when
         game.nextRound();
@@ -63,7 +66,8 @@ class RacingGameTest {
     void 게임종료_후_라운드진행_불가() {
         // given
         List<RacingCar> cars = List.of(RacingCars.createConstantSpeedCar("pobi", 1));
-        RacingGame game = new RacingGame(cars, 1);
+        Participants participants = new Participants(cars);
+        RacingGame game = new RacingGame(participants, 1);
 
         // when
         game.nextRound();
@@ -77,7 +81,8 @@ class RacingGameTest {
     void 횟수만큼_진행하기_전까지_게임진행상태를_유지한다() {
         // given
         List<RacingCar> cars = List.of(RacingCars.createConstantSpeedCar("pobi", 1));
-        RacingGame game = new RacingGame(cars, 2);
+        Participants participants = new Participants(cars);
+        RacingGame game = new RacingGame(participants, 2);
 
         // when
         game.nextRound();
@@ -90,7 +95,8 @@ class RacingGameTest {
     void 횟수만큼_진행후_게임을_종료한다() {
         // given
         List<RacingCar> cars = List.of(RacingCars.createConstantSpeedCar("pobi", 1));
-        RacingGame game = new RacingGame(cars, 2);
+        Participants participants = new Participants(cars);
+        RacingGame game = new RacingGame(participants, 2);
 
         // when
         game.nextRound();
@@ -108,7 +114,8 @@ class RacingGameTest {
             RacingCars.createConstantSpeedCar("woni", 0),
             RacingCars.createConstantSpeedCar("juni", 0)
         );
-        RacingGame game = new RacingGame(cars, 1);
+        Participants participants = new Participants(cars);
+        RacingGame game = new RacingGame(participants, 1);
 
         // when
         game.nextRound();
@@ -127,7 +134,8 @@ class RacingGameTest {
             RacingCars.createConstantSpeedCar("woni", 0),
             RacingCars.createConstantSpeedCar("juni", 1)
         );
-        RacingGame game = new RacingGame(cars, 1);
+        Participants participants = new Participants(cars);
+        RacingGame game = new RacingGame(participants, 1);
 
         // when
         game.nextRound();
@@ -142,7 +150,8 @@ class RacingGameTest {
     void 게임종료전_우승자결정은_불가능하다() {
         // given
         List<RacingCar> cars = List.of(RacingCars.createConstantSpeedCar("pobi", 1));
-        RacingGame game = new RacingGame(cars, 2);
+        Participants participants = new Participants(cars);
+        RacingGame game = new RacingGame(participants, 2);
 
         // when
         game.nextRound();

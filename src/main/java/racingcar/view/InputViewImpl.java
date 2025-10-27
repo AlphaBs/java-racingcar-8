@@ -1,7 +1,6 @@
 package racingcar.view;
 
 import camp.nextstep.edu.missionutils.Console;
-
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
@@ -23,8 +22,7 @@ public class InputViewImpl implements InputView {
         try {
             promptOutput.println("시도할 횟수는 몇 회인가요?");
             return Integer.parseInt(Console.readLine());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException("시도할 횟수로 정수를 입력하세요.");
         }
     }

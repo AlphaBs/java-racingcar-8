@@ -1,10 +1,9 @@
 package racingcar.view;
 
-import racingcar.RacingCar;
-import racingcar.RacingGame;
-
 import java.io.PrintStream;
 import java.util.List;
+import racingcar.RacingCar;
+import racingcar.RacingGame;
 
 public class OutputViewImpl implements OutputView {
     private final PrintStream out;
@@ -17,7 +16,7 @@ public class OutputViewImpl implements OutputView {
     public void printGameStart() {
         out.println("\n실행 결과");
     }
-    
+
     @Override
     public void printRoundResult(List<RacingCar> cars) {
         StringBuilder builder = new StringBuilder();
@@ -27,16 +26,16 @@ public class OutputViewImpl implements OutputView {
         out.println(builder);
         out.println();
     }
-    
+
     @Override
     public void printGameResult(RacingGame game) {
         List<String> winnerNames = game.findWinners().stream()
-                .map(RacingCar::getName)
-                .toList();
+            .map(RacingCar::getName)
+            .toList();
         String winnersLine = String.join(", ", winnerNames);
         out.println("\n최종 우승자 : " + winnersLine);
     }
-    
+
     private void appendCarLine(StringBuilder buffer, RacingCar car) {
         buffer.append(car.getName());
         buffer.append(" : ");

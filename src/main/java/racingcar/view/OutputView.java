@@ -1,9 +1,8 @@
 package racingcar.view;
 
+import java.util.List;
 import racingcar.RacingCar;
 import racingcar.RacingGame;
-
-import java.util.List;
 
 public interface OutputView {
     void printGameStart();

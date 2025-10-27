@@ -51,14 +51,14 @@ public class RacingGame {
     private int findMaxPosition() {
         // cars 는 반드시 하나 이상의 자동차를 가지기에, orElseThrow 가 발생할 일이 없음
         return this.cars.stream()
-                .mapToInt(RacingCar::getPosition)
-                .max()
-                .orElseThrow(() -> new IllegalStateException("잘못된 게임 상태"));
+            .mapToInt(RacingCar::getPosition)
+            .max()
+            .orElseThrow(() -> new IllegalStateException("잘못된 게임 상태"));
     }
 
     private List<RacingCar> findCarsByPosition(int position) {
         return this.cars.stream()
-                .filter(car -> car.getPosition() == position)
-                .toList();
+            .filter(car -> car.getPosition() == position)
+            .toList();
     }
 }

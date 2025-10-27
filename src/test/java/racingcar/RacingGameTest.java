@@ -1,40 +1,38 @@
 package racingcar;
 
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.List;
+import org.junit.jupiter.api.Test;
 
 class RacingGameTest {
     @Test
     void 자동차가_없는_게임은_불가능하다() {
         List<RacingCar> cars = List.of();
         assertThatThrownBy(() -> new RacingGame(cars, 10))
-                .isInstanceOf(IllegalArgumentException.class);
+            .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void 시도횟수를_음수로_설정한_게임은_불가능하다() {
         List<RacingCar> cars = List.of(
-                RacingCar.createConstantSpeedCar("pobi", 1),
-                RacingCar.createConstantSpeedCar("woni", 1)
+            RacingCars.createConstantSpeedCar("pobi", 1),
+            RacingCars.createConstantSpeedCar("woni", 1)
         );
         assertThatThrownBy(() -> new RacingGame(cars, -1))
-                .isInstanceOf(IllegalArgumentException.class);
+            .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
     void 한_라운드_진행() {
         // given
         List<RacingCar> cars = List.of(
-            RacingCar.createConstantSpeedCar("pobi", 2),
-            RacingCar.createConstantSpeedCar("woni", 4)
+            RacingCars.createConstantSpeedCar("pobi", 2),
+            RacingCars.createConstantSpeedCar("woni", 4)
         );
         RacingGame game = new RacingGame(cars, 1);
-        
+
         // when
         game.nextRound();
 
@@ -47,11 +45,11 @@ class RacingGameTest {
     void 여러_라운드_진행() {
         // given
         List<RacingCar> cars = List.of(
-            RacingCar.createConstantSpeedCar("pobi", 2),
-            RacingCar.createConstantSpeedCar("woni", 4)
+            RacingCars.createConstantSpeedCar("pobi", 2),
+            RacingCars.createConstantSpeedCar("woni", 4)
         );
         RacingGame game = new RacingGame(cars, 3);
-        
+
         // when
         game.nextRound();
         game.nextRound();
@@ -64,12 +62,12 @@ class RacingGameTest {
     @Test
     void 게임종료_후_라운드진행_불가() {
         // given
-        List<RacingCar> cars = List.of(RacingCar.createConstantSpeedCar("pobi", 1));
+        List<RacingCar> cars = List.of(RacingCars.createConstantSpeedCar("pobi", 1));
         RacingGame game = new RacingGame(cars, 1);
-        
+
         // when
         game.nextRound();
-        
+
         // then
         assertThatThrownBy(game::nextRound)
             .isInstanceOf(IllegalStateException.class);
@@ -78,7 +76,7 @@ class RacingGameTest {
     @Test
     void 횟수만큼_진행하기_전까지_게임진행상태를_유지한다() {
         // given
-        List<RacingCar> cars = List.of(RacingCar.createConstantSpeedCar("pobi", 1));
+        List<RacingCar> cars = List.of(RacingCars.createConstantSpeedCar("pobi", 1));
         RacingGame game = new RacingGame(cars, 2);
 
         // when
@@ -91,7 +89,7 @@ class RacingGameTest {
     @Test
     void 횟수만큼_진행후_게임을_종료한다() {
         // given
-        List<RacingCar> cars = List.of(RacingCar.createConstantSpeedCar("pobi", 1));
+        List<RacingCar> cars = List.of(RacingCars.createConstantSpeedCar("pobi", 1));
         RacingGame game = new RacingGame(cars, 2);
 
         // when
@@ -101,17 +99,17 @@ class RacingGameTest {
         // then
         assertThat(game.isGameOver()).isTrue();
     }
-    
+
     @Test
     void 게임종료후_단일_우승자_결정() {
         // given
         List<RacingCar> cars = List.of(
-            RacingCar.createConstantSpeedCar("pobi", 1),
-            RacingCar.createConstantSpeedCar("woni", 0),
-            RacingCar.createConstantSpeedCar("juni", 0)
+            RacingCars.createConstantSpeedCar("pobi", 1),
+            RacingCars.createConstantSpeedCar("woni", 0),
+            RacingCars.createConstantSpeedCar("juni", 0)
         );
         RacingGame game = new RacingGame(cars, 1);
-        
+
         // when
         game.nextRound();
         List<RacingCar> winners = game.findWinners();
@@ -125,9 +123,9 @@ class RacingGameTest {
     void 게임종료후_여러_우승자_결정() {
         // given
         List<RacingCar> cars = List.of(
-                RacingCar.createConstantSpeedCar("pobi", 1),
-                RacingCar.createConstantSpeedCar("woni", 0),
-                RacingCar.createConstantSpeedCar("juni", 1)
+            RacingCars.createConstantSpeedCar("pobi", 1),
+            RacingCars.createConstantSpeedCar("woni", 0),
+            RacingCars.createConstantSpeedCar("juni", 1)
         );
         RacingGame game = new RacingGame(cars, 1);
 
@@ -137,18 +135,18 @@ class RacingGameTest {
 
         // then
         assertThat(winners).extracting(RacingCar::getName)
-                .containsExactlyInAnyOrder("pobi", "juni");
+            .containsExactlyInAnyOrder("pobi", "juni");
     }
 
     @Test
     void 게임종료전_우승자결정은_불가능하다() {
         // given
-        List<RacingCar> cars = List.of(RacingCar.createConstantSpeedCar("pobi", 1));
+        List<RacingCar> cars = List.of(RacingCars.createConstantSpeedCar("pobi", 1));
         RacingGame game = new RacingGame(cars, 2);
-        
+
         // when
         game.nextRound();
-        
+
         // then
         assertThatThrownBy(game::findWinners)
             .isInstanceOf(IllegalStateException.class);

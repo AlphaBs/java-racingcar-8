@@ -1,19 +1,9 @@
 package racingcar;
 
-import racingcar.moving.ConstantSpeedMovingStrategy;
 import racingcar.moving.MovingStrategy;
-import racingcar.moving.RandomlyMovingStrategy;
 
 public class RacingCar {
     private static final int MAX_CAR_NAME = 5;
-
-    public static RacingCar createRandomlyMovingCar(String name) {
-        return new RacingCar(name, new RandomlyMovingStrategy());
-    }
-
-    public static RacingCar createConstantSpeedCar(String name, int speed) {
-        return new RacingCar(name, new ConstantSpeedMovingStrategy(speed));
-    }
 
     private final MovingStrategy movingStrategy;
     private final String name;
